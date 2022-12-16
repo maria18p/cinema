@@ -1,11 +1,16 @@
 import express from 'express';
 import bp from 'body-parser';
+import { createDBConnection } from './database/DBConnectionModule.js';
 
 const PORT = 3000;
 
 const app = express();
 
-startServer();
+const main = async () => {
+  await startServer();
+  console.log('HERE');
+  await createDBConnection();
+};
 
 const startServer = async () => {
   app.use(bp.json());
@@ -17,10 +22,6 @@ const listen_port = (app) => {
   app.listen(PORT, () => {
     console.log(`SERVER STARTED, LISTENING ON PORT: ${PORT}`);
   });
-  // database
-  // .sync()
-  // .then((conn) => app.listen(PORT))
-  // .catch(err => {console.log(err)})
 };
 
-// startServer();
+main();

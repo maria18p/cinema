@@ -1,9 +1,7 @@
 import sequelize from 'sequelize';
-//import mysql from 'mysql2';
-// import util from 'util';
+import mysql from 'mysql2';
+import util from 'util';
 
-let mysql;
-let util;
 const DATABASE_NAME = `cinema`;
 
 // interface CONFIG_SCHEMA {
@@ -66,7 +64,5 @@ export async function dropTable() {
 }
 
 export async function setup_database() {
-  mysql = require('mysql2');
-  util = require('util');
   if (!(await databaseExists())) await createDatabase();
 }
