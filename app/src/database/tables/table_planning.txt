@@ -1,0 +1,91 @@
+[V] Movies
+	id: int AI PK
+	length: int
+  name: string
+	
+[V]Presentation:
+	id: int AI PK
+	hall: int (FK Halls.id)
+	movie: int (FK Movies.id)
+	start: Date
+	time: time
+	
+[V]User:
+	id: AI PK
+	username: string
+	password: string
+	permission: int
+	
+//User_Permisions:
+//	id: AI PK
+//	permision: int
+	
+[V]Ticket:
+	id: AI PK
+	client: int (FK Users.id)
+	seat: int (FK Presentation_Seat.id)
+	
+[V]Halls:
+	id: AI PK
+	name: String
+	
+[V]Seat:
+	id: AI PK
+	name: String
+	hall: int (FK Halls.id)
+	
+[V]Presentation_Seat:
+	id: AI PK
+	presentation: int (FK presentation.id)
+	seat: int (FK Seats.id)
+	occupied: bool
+
+	
+
+
+
+/////////////////////
+
+
+
+Student
+	id
+	
+Teacher
+	id
+	
+Subject
+	id
+	
+Pairings
+	teacher
+	student
+	subject
+	
+	
+//some pairing:
+	student: Maria
+	teacher: Peter
+	subject: C#
+	
+	student: Maria
+	teacher: Peter
+	subject: Python
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

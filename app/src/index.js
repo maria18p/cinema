@@ -8,7 +8,6 @@ const app = express();
 
 const main = async () => {
   await startServer();
-  console.log('HERE');
   await createDBConnection();
 };
 

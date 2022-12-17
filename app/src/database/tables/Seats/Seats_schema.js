@@ -1,6 +1,6 @@
 import sequelize from 'sequelize';
 
-export const TABLE_NAME = `Movies`;
+export const TABLE_NAME = `Seats`;
 export default {
   id: {
     type: sequelize.INTEGER,
@@ -9,6 +9,5 @@ export default {
     primaryKey: true,
     onDelete: 'CASCADE',
   },
-  length: sequelize.INTEGER,
   name: sequelize.STRING,
 };

@@ -6,7 +6,7 @@ let ORM;
 export const createDBConnection = async () => {
   await setup_database();
   ORM = await setup_ORM();
-  // console.log('ORM: ' + ORM);
+
   await addDefaultValues();
 };
 
