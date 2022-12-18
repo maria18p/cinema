@@ -28,12 +28,12 @@ const define_ORM_tables = async (dbConnection) => {
   console.log('SETTING UP ORM TABLE CONNECTIONS...');
   const movies = await connectTable('Movies', Movies_schema, dbConnection);
   const halls = await connectTable('Halls', Halls_schema, dbConnection);
-  const presentation = await connectTable('Presentation', Presentation_schema, dbConnection);
+  const presentations = await connectTable('Presentations', Presentation_schema, dbConnection);
   const seats = await connectTable('Seats', Seats_schema, dbConnection);
   const tickets = await connectTable('Tickets', Tickets_schema, dbConnection);
   const users = await connectTable('Users', Users_schema, dbConnection);
-  const presentation_seat = await connectTable(
-    'Presentation_Seat',
+  const presentation_seats = await connectTable(
+    'Presentation_Seats',
     Presentation_Seat_schema,
     dbConnection,
   );
@@ -49,35 +49,35 @@ const define_ORM_tables = async (dbConnection) => {
   });
   console.log(`\thalls.hasMany(seats)\t->\tseats belongsTo(halls, on Seats.id)`);
 
-  await presentation.belongsTo(movies, {
+  await presentations.belongsTo(movies, {
     foreignKey: 'id',
     onDelete: 'cascade',
     onUpdate: 'cascade',
   });
-  await movies.hasMany(presentation);
+  await movies.hasMany(presentations);
 
-  await presentation.belongsTo(halls, {
+  await presentations.belongsTo(halls, {
     foreignKey: 'id',
     onDelete: 'cascade',
     onUpdate: 'cascade',
   });
-  await halls.hasMany(presentation);
+  await halls.hasMany(presentations);
 
-  await presentation_seat.belongsTo(seats, {
-    foreignKey: 'id',
-    onDelete: 'cascade',
-    onUpdate: 'cascade',
-  });
-
-  await seats.hasMany(presentation_seat);
-
-  await presentation_seat.belongsTo(presentation, {
+  await presentation_seats.belongsTo(seats, {
     foreignKey: 'id',
     onDelete: 'cascade',
     onUpdate: 'cascade',
   });
 
-  await presentation.hasMany(presentation_seat);
+  await seats.hasMany(presentation_seats);
+
+  await presentation_seats.belongsTo(presentations, {
+    foreignKey: 'id',
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  });
+
+  await presentations.hasMany(presentation_seats);
 
   await tickets.belongsTo(users, {
     foreignKey: 'id',
@@ -87,20 +87,20 @@ const define_ORM_tables = async (dbConnection) => {
 
   users.hasMany(tickets);
 
-  await tickets.belongsTo(presentation_seat, {
+  await tickets.belongsTo(presentation_seats, {
     foreignKey: 'id',
     onDelete: 'cascade',
     onUpdate: 'cascade',
   });
-  presentation_seat.hasMany(tickets);
+  presentation_seats.hasMany(tickets);
 
   console.log('----------------------------------------------------------------');
   console.log('Validating Tables');
 
   await validate_table(movies, 'Movies');
   await validate_table(halls, 'Halls');
-  await validate_table(presentation, 'Presentation');
-  await validate_table(presentation_seat, 'Presentation_Seat');
+  await validate_table(presentations, 'Presentations');
+  await validate_table(presentation_seats, 'Presentation_Seats');
   await validate_table(seats, 'Seats');
   await validate_table(tickets, 'Tickets');
   await validate_table(users, 'Users');
@@ -108,14 +108,14 @@ const define_ORM_tables = async (dbConnection) => {
   console.log('----------------------------------------------------------------');
   console.log('================================================================');
 
-  return { movies, halls, presentation, presentation_seat, seats, tickets, users };
+  return { movies, halls, presentations, presentation_seats, seats, tickets, users };
 };
 
 const connectTable = async (tableName, tableScheme, dbConnection) => {
   let table = await dbConnection.define(tableName, tableScheme);
   let indent = '\t';
   if (tableName.length < 8) indent = '\t\t\t';
-  else if (tableName.length == 12) indent = '\t\t';
+  else if (tableName.length == 13) indent = '\t\t';
   console.log(`\t${tableName}${indent}TABLE CONNECTED`);
   return table;
 };
@@ -126,7 +126,7 @@ const validate_table = async (table, tableName) => {
     .then(async () => {
       let indent = '\t';
       if (tableName.length < 8) indent = '\t\t\t';
-      else if (tableName.length == 12) indent = '\t\t';
+      else if (tableName.length == 13) indent = '\t\t';
       console.log(`\t${tableName}${indent}TABLE VALIDATED`);
     })
     .catch((err) => {

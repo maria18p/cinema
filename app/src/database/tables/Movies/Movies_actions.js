@@ -1,11 +1,11 @@
 import { ORM } from '../../DBConnectionModule.js';
 
-export const addMovie = async (requestObject) => {
-  console.log('ORM: ' + ORM);
+export const add_movie = async (requestObject) => {
   let result = -1;
-  result = await ORM.Movies.create({
-    name: requestObject.name,
-  })
+  result = await ORM.movies
+    .create({
+      name: requestObject.name,
+    })
     .then((result) => {
       console.log(`Movie ADDED: ${requestObject.name}`);
       return 1;
@@ -16,7 +16,7 @@ export const addMovie = async (requestObject) => {
   return result;
 };
 
-export const allMovies = async () => {
+export const get_all_movies = async () => {
   return await ORM.movies
     .findAll({})
     .then(async (rows) => {
@@ -27,7 +27,7 @@ export const allMovies = async () => {
     });
 };
 
-export const clear_records = async () => {
+export const clear_records_movies = async () => {
   const result = ORM.movies
     .destroy({ where: {} })
     .then(() => {
@@ -39,39 +39,41 @@ export const clear_records = async () => {
   return result;
 };
 
-export const update_name_movie = async (requestObject) => {
+export const update_movie = async (requestObject) => {
   const update_result = ORM.movies
     .update(
       {
-        name: requestObject.updatedName,
+        name: requestObject.name,
+        length: requestObject.length,
       },
-      { where: { name: requestObject.name } },
+      { where: { id: requestObject.id } },
     )
     .then(async () => {
       return {
-        message: `Movie ${requestObject.name} NAME UPDATED TO: ${requestObject.updateName}`,
+        message: `MOVIE ${requestObject.name} UPDATED TO: ${requestObject.name} / LENGTH: ${requestObject.length}`,
       };
     });
   return update_result;
 };
 
-export const getMovieById = async (requestObject) => {
+export const get_movie_by_id = async (requestObject) => {
   const result = await ORM.movies
     .findByPk(requestObject.id)
     .then(async (row) => {
       return row;
     })
     .catch((err) => {
-      console.log(err);
+      console.log('REQUESTED MOVIE NOT FOUND');
+      return 404;
     });
   return result;
 };
 
-export const removeMovie = (requestObject) => {
+export const remove_movie = (requestObject) => {
   const result = ORM.movies
     .destroy({ where: { id: requestObject.id } })
     .then(() => {
-      return `Movie bu id :${requestObject.id} was removed`;
+      return `MOVIE BY ID :${requestObject.id} WAS REMOVED`;
     })
     .catch((err) => {
       throw err;
