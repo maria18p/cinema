@@ -6,12 +6,11 @@ let ORM;
 export const createDBConnection = async () => {
   await setup_database();
   ORM = await setup_ORM();
-
-  await addDefaultValues();
+  // await addDefaultValues();
 };
 
 export { ORM };
 
-const addDefaultValues = async () => {
-  await addMovie({ name: 'Titanic' });
-};
+// const addDefaultValues = async () => {
+//   await addMovie({ name: 'Avatar' });
+// };

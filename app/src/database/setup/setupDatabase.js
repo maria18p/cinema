@@ -53,7 +53,7 @@ async function createDatabase() {
   return await databaseExists();
 }
 
-async function deleteDatabase() {
+export async function deleteDatabase() {
   const sql = `DROP DATABASE ${DATABASE_NAME};`;
   const queryResult = await sendQuery(sql);
 }
