@@ -16,10 +16,6 @@
 	password: string
 	permission: int
 	
-//User_Permisions:
-//	id: AI PK
-//	permision: int
-	
 [V]Ticket:
 	id: AI PK
 	client: int (FK Users.id)

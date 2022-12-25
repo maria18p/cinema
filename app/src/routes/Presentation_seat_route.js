@@ -3,7 +3,7 @@ import {} from '../database/DBConnectionModule.js';
 
 export const presentation_seat_route = express.Router();
 
-movie_route.get('/presentaton_seat/:ID', async (req, res) => {
+presentation_seat_route.get('/presentaton_seat/:ID', async (req, res) => {
   const requestObject = {
     id: req.params.ID,
   };

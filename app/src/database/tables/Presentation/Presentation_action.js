@@ -1,8 +1,10 @@
 import { ORM } from '../../DBConnectionModule.js';
 
 export const add_presentation = async (requestObject) => {
-  result = await ORM.presentations
+  const result = await ORM.presentations
     .create({
+      HallId: requestObject.hall,
+      MovieId: requestObject.movie,
       name: requestObject.name,
       start: requestObject.start,
       time: requestObject.time,
@@ -11,6 +13,7 @@ export const add_presentation = async (requestObject) => {
       console.log(
         `ADDED PRESENTATION ${requestObject.name} START AT ${requestObject.start} O'CLOCK`,
       );
+      return 200;
     })
     .catch((err) => {
       throw err;
@@ -70,14 +73,15 @@ export const get_presentation_by_id = async (requestObject) => {
   return result;
 };
 
-export const remove_movie = (requestObject) => {
+export const remove_presentation = (requestObject) => {
   const result = ORM.presentations
     .destroy({ where: { id: requestObject.id } })
     .then(() => {
-      return `PRESENTATION BY ID :${requestObject.id} was removed`;
+      console.log(`PRESENTATION BY ID :${requestObject.id} was removed`);
+      return 200;
     })
     .catch((err) => {
-      throw err;
+      return 404;
     });
   return result;
 };

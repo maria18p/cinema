@@ -1,12 +1,12 @@
 import { ORM } from '../../DBConnectionModule.js';
 
 export const add_hall = async (requestObject) => {
-  result = await ORM.halls
+  const result = await ORM.halls
     .create({
       name: requestObject.name,
     })
     .then(() => {
-      console.log(`Added Hall ${requestObject.name}`);
+      console.log(`ADDED HALL ${requestObject.name}`);
     })
     .catch((err) => {
       throw err;
@@ -66,7 +66,7 @@ export const get_hall_by_id = async (requestObject) => {
   return result;
 };
 
-export const remove_movie = (requestObject) => {
+export const remove_hall = (requestObject) => {
   const result = ORM.halls
     .destroy({ where: { id: requestObject.id } })
     .then(() => {

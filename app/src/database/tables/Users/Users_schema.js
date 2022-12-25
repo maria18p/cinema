@@ -11,4 +11,5 @@ export default {
   },
   username: sequelize.STRING,
   password: sequelize.STRING,
+  permission: sequelize.INTEGER,
 };

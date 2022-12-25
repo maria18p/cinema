@@ -1,10 +1,11 @@
 import { ORM } from '../../DBConnectionModule.js';
 
 export const add_user = async (requestObject) => {
-  result = await ORM.users
+  const result = await ORM.users
     .create({
       username: requestObject.username,
       password: requestObject.password,
+      permission: requestObject.permission,
     })
     .then(() => {
       console.log(`USER ${requestObject.username} ADDED`);

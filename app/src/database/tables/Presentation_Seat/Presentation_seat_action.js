@@ -1,7 +1,7 @@
 import { ORM } from '../../DBConnectionModule.js';
 
 export const add_presentation_seats = async (requestObject) => {
-  result = await ORM.presentation_seats
+  const result = await ORM.presentation_seats
     .create({
       occupied: requestObject.occupied,
     })

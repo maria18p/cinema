@@ -50,7 +50,7 @@ export const update_movie = async (requestObject) => {
     )
     .then(async () => {
       return {
-        message: `MOVIE ${requestObject.name} UPDATED TO: ${requestObject.name} / LENGTH: ${requestObject.length}`,
+        message: `MOVIE UPDATED TO: ${requestObject.name} / LENGTH: ${requestObject.length}`,
       };
     });
   return update_result;

@@ -1,7 +1,7 @@
 import { ORM } from '../../DBConnectionModule.js';
 
 export const add_seats = async (requestObject) => {
-  result = await ORM.seats
+  const result = await ORM.seats
     .create({
       name: requestObject.name,
     })
