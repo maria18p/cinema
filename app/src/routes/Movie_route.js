@@ -1,16 +1,25 @@
-import express from 'express';
-import { get_request_movie_by_id } from '../database/DBConnectionModule.js';
+import express from "express";
+import { get_request_movie_by_id } from "../database/DBConnectionModule.js";
 
-export const movie_route = express.Router();
+const router = express.Router();
 
-movie_route.get('/movies/:ID', async (req, res) => {
-  const requestObject = {
-    id: req.params.ID,
-  };
-  res.send(await get_request_movie_by_id(requestObject));
+router.get("/:ID", async (req, res) => {
+	const requestObject = {
+		id: req.params.ID,
+	};
+	res.send(await get_request_movie_by_id(requestObject));
 });
 
-movie_route.put('/update_length_movie', async (req, res) => {});
+router.put("/update", async (req, res) => {
+	const requestObject = {
+		length: req.body.length,
+		name: req.body.name,
+	};
+
+	res.send(await put_request_update_movie(requestObject));
+});
+
+export default router;
 
 /*
       [route] -> [DB]
