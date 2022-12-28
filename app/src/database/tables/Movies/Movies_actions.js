@@ -46,12 +46,15 @@ export const update_movie = async (requestObject) => {
         name: requestObject.name,
         length: requestObject.length,
       },
-      { where: { id: requestObject.id } },
+      { where: { name: requestObject.name } },
     )
     .then(async () => {
       return {
         message: `MOVIE UPDATED TO: ${requestObject.name} / LENGTH: ${requestObject.length}`,
       };
+    })
+    .catch((err) => {
+      throw err;
     });
   return update_result;
 };

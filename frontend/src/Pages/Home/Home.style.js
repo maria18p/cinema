@@ -1,35 +1,39 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const VerticalContainer = styled.div`
-	display: flex;
-	flex-direction: column;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const SeatContainer = styled.div`
-	padding: 5px;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	gap: 5px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
 `;
 
 export const EmptySeat = styled.button`
-	background-color: green;
-	border: 1px solid grey;
-	border-radius: 15px;
+  width: 75%;
+  background-color: #78bc61;
+  border: 1px solid grey;
+  border-radius: 15px;
 
-	&:hover {
-		background-color: black;
-		cursor: pointer;
-		color: white;
-	}
+  &:hover {
+    background-color: black;
+    cursor: pointer;
+    color: white;
+  }
 `;
 
 export const OccupiedSeat = styled.button`
-	background-color: red;
-	border: 1px solid grey;
-	border-radius: 15px;
+  padding: 10px;
+  width: 75%;
+  background-color: #f0544f;
+  border: 1px solid grey;
+  border-radius: 15px;
 
-	/* &:hover {
+  /* &:hover {
 		background-color: black;
 		cursor: pointer;
 		color: white;
@@ -37,11 +41,12 @@ export const OccupiedSeat = styled.button`
 `;
 
 export const Submit = styled.button`
-	border: 1px solid grey;
-	border-radius: 15px;
-	&:hover {
-		background-color: black;
-		cursor: pointer;
-		color: white;
-	}
+  font-size: 20px;
+  border: 1px solid grey;
+  border-radius: 15px;
+  &:hover {
+    background-color: black;
+    cursor: pointer;
+    color: white;
+  }
 `;

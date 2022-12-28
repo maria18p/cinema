@@ -20,7 +20,7 @@ const startServer = async () => {
   app.use(cors());
   app.use(bp.json());
   app.use(bp.urlencoded({ extended: false }));
-  app.use('/', movie_route);
+  app.use('/movies', movie_route);
   app.use('/', index_route);
   app.use('/', hall_route);
   app.use('/', presentation_route);
