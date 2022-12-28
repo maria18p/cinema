@@ -1,23 +1,25 @@
-import express from 'express';
-import { request_post_user } from '../database/DBConnectionModule.js';
+import express from "express";
+import { request_post_user } from "../database/DBConnectionModule.js";
 
-export const user_route = express.Router();
+const router = express.Router();
 
-user_route.get('/user/:ID', async (req, res) => {
-  const requestObject = {
-    id: req.params.ID,
-  };
-  res.send(await get_request_user_by_id(requestObject));
+router.get("/:ID", async (req, res) => {
+	const requestObject = {
+		id: req.params.ID,
+	};
+	res.send(await get_request_user_by_id(requestObject));
 });
 
-user_route.post('/user/addUser', async (req, res) => {
-  const { username, password, permission } = req.body;
-  const requestObject = {
-    username: username,
-    password: password,
-    permission: permission,
-  };
+router.post("/addUser", async (req, res) => {
+	const { username, password } = req.body;
+	const requestObject = {
+		username: username,
+		password: password,
+		permission: 0,
+	};
 
-  const result = await request_post_user(requestObject);
-  res.send(await result);
+	const result = await request_post_user(requestObject);
+	res.send(await result);
 });
+
+export default router;
