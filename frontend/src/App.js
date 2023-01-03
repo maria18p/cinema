@@ -10,8 +10,8 @@ import Register from "./Pages/Register";
 function App() {
 	return (
 		<>
-			<Navbar />
 			<BrowserRouter>
+				<Navbar />
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/Home" element={<Home />} />
