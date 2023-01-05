@@ -3,7 +3,7 @@ import NavbarView from "./NavbarView";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
 	const navigate = useNavigate();
-	const options = ["Home", "Login", "Tickets", "Manage", "Register"];
+	const options = ["Home", "Login", "Tickets", "Manage", "Register", "Manage"];
 
 	const goTo = (link) => {
 		navigate(`/${link}`);

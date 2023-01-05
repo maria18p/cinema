@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register";
+import AdminPage from "./Pages/Admin";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 					<Route path="/Tickets" element={<Home />} />
 					<Route path="/Login" element={<Login />} />
 					<Route path="/Register" element={<Register />} />
+					<Route path="/Manage" element={<AdminPage />} />
 				</Routes>
 			</BrowserRouter>
 		</>
