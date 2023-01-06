@@ -18,6 +18,7 @@ movie_route.put('/update', async (req, res) => {
 });
 
 export default movie_route;
+
 /*
       [route] -> [DB]
 
