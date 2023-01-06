@@ -7,7 +7,7 @@ const NavbarView = (props) => {
 			<>
 				{props.options.map((option, index) => {
 					return (
-						<NavbarOption key={index} href={option}>
+						<NavbarOption key={index} onClick={() => props.goTo(option)}>
 							{option}
 						</NavbarOption>
 					);

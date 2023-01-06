@@ -45,3 +45,8 @@ export const FormSubmit = styled.button`
 		color: yellow;
 	}
 `;
+
+export const PageWithSidebarContainer = styled.div`
+	display: grid;
+	grid-template-columns: 0.2fr 1fr;
+`;
