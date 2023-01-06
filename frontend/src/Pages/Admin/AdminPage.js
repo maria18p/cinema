@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AdminPageView from "./AdminPageView";
+import Users from "./Users";
+import Movies from "./Movies";
+import Halls from "./Halls/Halls";
+import Presentations from "./Presentations";
+import Seats from "./Seats/Seats";
 
 const AdminPage = () => {
-	const [content, setContent] = useState("users");
-	const [data, setData] = useState([]);
-	const [attributes, setAttributes] = useState([]);
+	const [content, setContent] = useState(<Seats />);
 
 	const sidebarOptions = [
 		"Movies",
@@ -15,29 +18,51 @@ const AdminPage = () => {
 		"Tickets",
 	];
 
-	const switchContent = (content) => setContent(content);
+	const switchContent = (content) => {
+		switch (content) {
+			case "Users":
+				setContent(<Users />);
+				break;
+			case "Movies":
+				setContent(<Movies />);
+				break;
+			case "Halls":
+				setContent(<Halls />);
+				break;
+			case "Presentations":
+				setContent(<Presentations />);
+				break;
+			case "Seats":
+				setContent(<Seats />);
+				break;
+			default:
+				switchContent("Users");
+		}
+	};
 
-	useEffect(() => {
-		const userObj = {
-			username: "admin",
-			password: "admin",
-		};
-		// TODO request data here
-		const allAttributes = ["Username", "Password"];
-
-		const allData = [];
-		allData.push(userObj);
-
-		setData(allData);
-		setAttributes(allAttributes);
-	}, []);
+	// useEffect(() => {
+	// const userObj = {
+	// 	username: "admin",
+	// 	password: "admin",
+	// };
+	// // TODO request data here
+	// const allAttributes = ["Username", "Password"];
+	// const allData = [];
+	// allData.push(userObj);
+	// allData.push(userObj);
+	// allData.push(userObj);
+	// setData(allData);
+	// setAttributes(allAttributes);
+	// const dataObj = { attributes: attributes, values: data };
+	// setData(dataObj);
+	// switchContent("Users");
+	// }, []);
 
 	return (
 		<AdminPageView
 			sidebarOptions={sidebarOptions}
 			switchContent={switchContent}
 			content={content}
-			data={{ attributes: attributes, values: data }}
 		/>
 	);
 };

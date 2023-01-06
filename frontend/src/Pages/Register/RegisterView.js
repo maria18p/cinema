@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import {
-	Container_Grid_2,
+	ContainerGrid2,
 	FormInput,
 	FormSubmit,
 	InputLabel,
@@ -21,15 +21,15 @@ const RegisterView = (props) => {
 			<VerticalContainer>
 				<Title>Register:</Title>
 
-				<Container_Grid_2>
+				<ContainerGrid2>
 					<InputLabel>Username:</InputLabel>
 					<FormInput ref={username} />
-				</Container_Grid_2>
+				</ContainerGrid2>
 
-				<Container_Grid_2>
+				<ContainerGrid2>
 					<InputLabel>Password:</InputLabel>
 					<FormInput ref={password} />
-				</Container_Grid_2>
+				</ContainerGrid2>
 
 				<FormSubmit onClick={() => handleRegister()}>Register</FormSubmit>
 			</VerticalContainer>

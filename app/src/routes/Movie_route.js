@@ -1,32 +1,37 @@
-import express from 'express';
-import { get_request_movie_by_id } from '../database/DBConnectionModule.js';
-import { update_movie } from '../database/tables/Movies/Movies_actions.js';
+import express from "express";
+import {
+	get_request_all_movies,
+	get_request_movie_by_id,
+	post_request_add_movie,
+} from "../database/DBConnectionModule.js";
 
-const movie_route = express.Router();
+const router = express.Router();
 
-movie_route.get('/:ID', async (req, res) => {
-  const requestObject = {
-    id: req.params.ID,
-  };
-  res.send(await get_request_movie_by_id(requestObject));
+router.get("/getById", async (req, res) => {
+	const requestObject = {
+		id: req.query.id,
+	};
+	console.log("Object", Object);
+	res.send(await get_request_movie_by_id(requestObject));
 });
 
-movie_route.put('/update', async (req, res) => {
-  const { name, length } = req.body;
-  const requestObject = { name: name, length: length };
-  res.send(await update_movie(requestObject));
+router.put("/update", async (req, res) => {
+	const requestObject = {
+		length: req.body.length,
+		name: req.body.name,
+	};
+
+	res.send(await put_request_update_movie(requestObject));
 });
 
-export default movie_route;
+router.post("/add", async (req, res) => {
+	const requestObject = req.body;
+	if ((await post_request_add_movie(requestObject)) == 1) res.sendStatus(200);
+});
 
-/*
-      [route] -> [DB]
+router.post("/getAll", async (req, res) => {
+	const requestObject = {};
+	res.send(await get_request_all_movies(requestObject));
+});
 
-
-      [DB] -> tables
-              actions
-              schema
-
-      [route] -> points of input/output
-
-*/
+export default router;
