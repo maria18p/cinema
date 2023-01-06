@@ -1,17 +1,37 @@
 import { setup_database } from "./setup/setupDatabase.js";
 import { setup_ORM } from "./setup/setupORM.js";
-import { add_hall, get_hall_by_id } from "./tables/Halls/Halls_action.js";
-import { add_movie, get_movie_by_id } from "./tables/Movies/Movies_actions.js";
+import {
+	add_hall,
+	get_all_halls,
+	get_hall_by_id,
+} from "./tables/Halls/Halls_action.js";
+import {
+	add_movie,
+	get_all_movies,
+	get_movie_by_id,
+} from "./tables/Movies/Movies_actions.js";
 import {
 	add_presentation,
+	get_all_presentations,
+	get_all_presentations_by_movieId,
 	get_presentation_by_id,
 } from "./tables/Presentation/Presentation_action.js";
-import { get_presentation_seats_by_id } from "./tables/Presentation_Seat/Presentation_seat_action.js";
-import { get_seats_by_id } from "./tables/Seats/Seats_action.js";
+import {
+	add_presentation_seats,
+	get_all_presentation_seats,
+	get_presentation_seats_by_id,
+	get_presentation_seats_by_seat_id,
+} from "./tables/Presentation_Seat/Presentation_seat_action.js";
+import {
+	add_seats,
+	get_all_seats,
+	get_seats_by_id,
+} from "./tables/Seats/Seats_action.js";
 import { get_tickets_by_id } from "./tables/Tickets/Ticket_action.js";
 import {
 	add_user,
 	auth_matches,
+	get_all_users,
 	get_user_by_id,
 } from "./tables/Users/User_action.js";
 
@@ -61,6 +81,11 @@ export const get_request_user_by_id = async (requestObject) => {
 	return request_result;
 };
 
+export const get_request_all_users = async (requestObject) => {
+	const request_result = await get_all_users(requestObject);
+	return request_result;
+};
+
 //post requests
 export const post_request_hall = async (requestObject) => {
 	const request_result = await add_hall(requestObject);
@@ -84,14 +109,79 @@ export const request_post_presentation_add = async (requestObject) => {
 
 export const request_get_login = async (requestObject) => {
 	const request_result = await auth_matches(requestObject);
-	console.log("request_result", request_result);
+
 	return request_result;
 };
 
+export const get_request_all_halls = async (requestObject) => {
+	const request_result = await get_all_halls(requestObject);
+	return request_result;
+};
+
+export const post_request_add_movie = async (requestObject) => {
+	const request_result = await add_movie(requestObject);
+	return request_result;
+};
+
+export const get_request_all_movies = async (requestObject) => {
+	const request_result = await get_all_movies(requestObject);
+	return request_result;
+};
+
+export const get_request_all_presentations = async (requestObject) => {
+	const request_result = await get_all_presentations(requestObject);
+	return request_result;
+};
+
+export const get_request_all_presentations_by_movieId = async (
+	requestObject
+) => {
+	const result = await get_all_presentations_by_movieId(requestObject);
+	return result;
+};
+
+export const post_request_add_seat = async (requestObject) => {
+	const result = await add_seats(requestObject);
+	return result;
+};
+
+export const get_request_all_seats = async (requestObject) => {
+	const result = await get_all_seats(requestObject);
+	return result;
+};
+
+export const get_request_presentation_seat_by_presentation_id = async (
+	requestObject
+) => {
+	const presentationSeats = await get_all_presentation_seats(requestObject);
+	const presentation = await get_presentation_by_id({
+		id: requestObject.presentationId,
+	});
+	const hallSeats = await get_all_seats({ hallId: presentation.HallId });
+	const result = [];
+	for (const seat of hallSeats) {
+		const seatObject = seat;
+		if ((await get_presentation_seats_by_seat_id(seat)) != null)
+			seatObject.dataValues.occupied = true;
+		else seatObject.dataValues.occupied = false;
+		result.push(seatObject);
+	}
+	return result;
+};
+
+export const post_request_add_presentation_seat = async (requestObject) => {
+	const result = await add_presentation_seats(requestObject);
+	return result;
+};
+
 const addDefaultValues = async () => {
-	await add_movie({ name: "Avatar" });
-	// await add_movie({ name: 'Titanic' });
-	// await add_movie({ name: 'Back to the Future' });
-	// await add_movie({ name: 'Indiana Jones' });
-	// await add_movie({ name: 'Intersteller' });
+	// return;
+	await add_movie({ name: "Avatar", length: 150 });
+	await add_movie({ name: "Titanic", length: 150 });
+	await add_movie({ name: "Back to the Future", length: 150 });
+	await add_movie({ name: "Indiana Jones", length: 150 });
+	await add_movie({ name: "Intersteller", length: 150 });
+	await add_hall({ name: "Green" });
+	await add_hall({ name: "Red" });
+	await add_hall({ name: "Blue" });
 };

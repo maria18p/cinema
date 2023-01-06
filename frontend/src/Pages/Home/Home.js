@@ -1,35 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HomeView from "./HomeView";
+import { getAllMovies } from "../../API/moviesCalls";
+import { getAllPresentations } from "../../API/presentationCalls";
+import {
+	addPresentationSeats,
+	getPresentationSeatsByPresentation,
+} from "../../API/presentationSeatCalls";
 
 export default function Home() {
-	const movies = [
-		"Avatar",
-		"Harry Potter",
-		"Star Wars",
-		"The Lord of the Rings",
-		"The Hulk",
-	];
-	const presentations = ["10:00", "12:00", "13:00", "14:00", "15:00"];
+	const [movies, setMovies] = useState([]);
+	const [presentations, setPresentations] = useState([]);
+	const [movieSeats, setMoviesSeats] = useState([]);
+	const [selectedMovie, setSelectedMovie] = useState(null);
+	const [selectedPresentation, setSelectedPresentation] = useState(null);
+	const [selectedMovieSeat, setSelectedMovieSeat] = useState(null);
 
-	const getPresentationSeats = () => {
-		const alphabet = "abcdefghijklmnopqrstuvwxyz";
-		const seats = [];
-		const seatCount = 15;
-		for (let i = 1; i <= seatCount; i++) {
-			let seatName1 = "" + i + "a";
-			let seatName2 = "" + i + "b";
-			let seatName3 = "" + i + "c";
-
-			seats.push({ name: seatName1, occupied: true });
-			seats.push({ name: seatName2, occupied: false });
-			seats.push({ name: seatName3, occupied: true });
-		}
-
-		return seats;
+	const refreshMovies = async () => {
+		const result = await getAllMovies();
+		setMovies(result);
 	};
-	const seats = getPresentationSeats();
+
+	const refreshPresentations = async () => {
+		setPresentations(await getAllPresentations(selectedMovie));
+	};
+
+	const selectMovie = (movie) => setSelectedMovie(movie);
+	const selectPresentation = (presentation) => {
+		console.log("presentation", presentation);
+		setSelectedPresentation(presentation);
+	};
+	const refreshMovieSeats = async () => {
+		setMoviesSeats(
+			await getPresentationSeatsByPresentation(selectedPresentation)
+		);
+	};
+
+	useEffect(() => {
+		refreshMovies();
+	}, []);
+
+	useEffect(() => {
+		if (selectedMovie !== null) refreshPresentations();
+	}, [selectedMovie]);
+
+	useEffect(() => {
+		if (selectedPresentation !== null) refreshMovieSeats();
+	}, [selectedPresentation]);
+
+	const selectSeat = async (seat) => {
+		const requestObject = {
+			seatId: seat.id,
+			presentationId: selectedPresentation.id,
+		};
+		await addPresentationSeats(requestObject);
+	};
 
 	return (
-		<HomeView movieList={movies} presentations={presentations} seats={seats} />
+		<HomeView
+			movies={movies}
+			presentations={presentations}
+			movieSeats={movieSeats}
+			selectMovie={selectMovie}
+			selectPresentation={selectPresentation}
+			selectSeat={selectSeat}
+		/>
 	);
 }

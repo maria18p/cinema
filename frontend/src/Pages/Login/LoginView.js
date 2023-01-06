@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import {
-	Container_Grid_2,
+	ContainerGrid2,
 	FormInput,
 	FormSubmit,
 	InputLabel,
@@ -20,15 +20,15 @@ export default function LoginView(props) {
 		<>
 			<VerticalContainer>
 				<Title>Login</Title>
-				<Container_Grid_2>
+				<ContainerGrid2>
 					<InputLabel>Username:</InputLabel>
 					<FormInput ref={username} />
-				</Container_Grid_2>
+				</ContainerGrid2>
 
-				<Container_Grid_2>
+				<ContainerGrid2>
 					<InputLabel>Password:</InputLabel>
 					<FormInput ref={password} />
-				</Container_Grid_2>
+				</ContainerGrid2>
 
 				<FormSubmit onClick={() => handleLogin()}>Login</FormSubmit>
 			</VerticalContainer>

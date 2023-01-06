@@ -64,5 +64,6 @@ export async function dropTable() {
 }
 
 export async function setup_database() {
+	// await deleteDatabase();
 	if (!(await databaseExists())) await createDatabase();
 }

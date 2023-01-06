@@ -19,10 +19,13 @@ export const VerticalContainer = styled.div`
 	gap: 10px;
 	justify-content: center;
 	align-items: center;
+	height: 100%;
 `;
 
-export const Container_Grid_2 = styled.div`
+export const ContainerGrid2 = styled.div`
 	display: grid;
+	gap: 15px;
+	/* width: 40%; */
 	grid-template-columns: 0.5fr 1fr;
 `;
 
@@ -50,3 +53,7 @@ export const PageWithSidebarContainer = styled.div`
 	display: grid;
 	grid-template-columns: 0.2fr 1fr;
 `;
+
+export const FormSelect = styled.select``;
+
+export const SelectOption = styled.option``;

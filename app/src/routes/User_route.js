@@ -1,7 +1,15 @@
 import express from "express";
-import { request_post_user } from "../database/DBConnectionModule.js";
+import {
+	get_request_all_users,
+	request_post_user,
+} from "../database/DBConnectionModule.js";
 
 const router = express.Router();
+
+router.get("/getAll", async (req, res) => {
+	const requestObject = {};
+	res.send(await get_request_all_users(requestObject));
+});
 
 router.get("/:ID", async (req, res) => {
 	const requestObject = {

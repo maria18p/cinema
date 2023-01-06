@@ -13,15 +13,4 @@ router.post("/", async (req, res) => {
 	res.send(200);
 });
 
-/*
-      [route] -> [DB]
-
-
-      [DB] -> tables
-              actions
-              schema
-
-      [route] -> points of input/output
-
-*/
 export default router;

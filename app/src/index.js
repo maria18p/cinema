@@ -8,6 +8,7 @@ import Hall_route from "./routes/Hall_route.js";
 import Presentation_route from "./routes/Presentation_route.js";
 import User_route from "./routes/User_route.js";
 import Auth_route from "./routes/Auth_route.js";
+import { presentation_seat_route } from "./routes/Presentation_seat_route.js";
 
 const PORT = 5000;
 
@@ -36,6 +37,7 @@ const config_routes = (app) => {
 	app.use("/Presentations", Presentation_route);
 	app.use("/Users", User_route);
 	app.use("/Auth", Auth_route);
+	app.use("/PresentationSeats", presentation_seat_route);
 };
 
 const listen_port = (app) => {

@@ -28,7 +28,7 @@ export const clear_user = async (requestObject) => {
 	return result;
 };
 
-export const get_all_users = async () => {
+export const get_all_users = async (requestObject) => {
 	return await ORM.users
 		.findAll({})
 		.then(async (rows) => {

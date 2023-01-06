@@ -51,7 +51,7 @@ const define_ORM_tables = async (dbConnection) => {
 
 	await halls.hasMany(seats, { onDelete: "cascade" });
 	await seats.belongsTo(halls, {
-		foreignKey: "id",
+		// foreignKey: "id",
 		// onDelete: 'cascade',
 		// onUpdate: 'cascade'
 	});
@@ -60,21 +60,21 @@ const define_ORM_tables = async (dbConnection) => {
 	);
 
 	await presentations.belongsTo(movies, {
-		foreignKey: "id",
+		// foreignKey: "movie_id",
 		onDelete: "cascade",
 		onUpdate: "cascade",
 	});
 	await movies.hasMany(presentations);
 
 	await presentations.belongsTo(halls, {
-		foreignKey: "id",
+		// foreignKey: "hall_id",
 		onDelete: "cascade",
 		onUpdate: "cascade",
 	});
 	await halls.hasMany(presentations);
 
 	await presentation_seats.belongsTo(seats, {
-		foreignKey: "id",
+		// foreignKey: "id",
 		onDelete: "cascade",
 		onUpdate: "cascade",
 	});
@@ -82,7 +82,7 @@ const define_ORM_tables = async (dbConnection) => {
 	await seats.hasMany(presentation_seats);
 
 	await presentation_seats.belongsTo(presentations, {
-		foreignKey: "id",
+		// foreignKey: "id",
 		onDelete: "cascade",
 		onUpdate: "cascade",
 	});
@@ -90,7 +90,7 @@ const define_ORM_tables = async (dbConnection) => {
 	await presentations.hasMany(presentation_seats);
 
 	await tickets.belongsTo(users, {
-		foreignKey: "id",
+		// foreignKey: "id",
 		onDelete: "cascade",
 		onUpdate: "cascade",
 	});
@@ -98,7 +98,7 @@ const define_ORM_tables = async (dbConnection) => {
 	users.hasMany(tickets);
 
 	await tickets.belongsTo(presentation_seats, {
-		foreignKey: "id",
+		// foreignKey: "id",
 		onDelete: "cascade",
 		onUpdate: "cascade",
 	});
