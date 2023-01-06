@@ -1,7 +1,8 @@
 import express from 'express';
 import { get_request_movie_by_id } from '../database/DBConnectionModule.js';
 import { update_movie } from '../database/tables/Movies/Movies_actions.js';
-export const movie_route = express.Router();
+
+const movie_route = express.Router();
 
 movie_route.get('/:ID', async (req, res) => {
   const requestObject = {
@@ -16,6 +17,7 @@ movie_route.put('/update', async (req, res) => {
   res.send(await update_movie(requestObject));
 });
 
+export default movie_route;
 /*
       [route] -> [DB]
 
