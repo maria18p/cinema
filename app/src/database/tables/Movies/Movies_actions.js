@@ -6,6 +6,7 @@ export const add_movie = async (requestObject) => {
 		.create({
 			name: requestObject.name,
 			length: requestObject.length,
+			posterURL: requestObject.poster,
 		})
 		.then((result) => {
 			console.log(`Movie ADDED: ${requestObject.name}`);

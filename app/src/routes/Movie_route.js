@@ -25,10 +25,7 @@ router.put("/update", async (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-	const requestObject = {
-		length: req.body.length,
-		name: req.body.name,
-	};
+	const requestObject = req.body;
 	if ((await post_request_add_movie(requestObject)) == 1) res.sendStatus(200);
 });
 

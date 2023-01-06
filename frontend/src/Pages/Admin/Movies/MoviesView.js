@@ -14,6 +14,7 @@ const MoviesView = (props) => {
 	const [displayForm, setDisplayForm] = useState(false);
 	const nameRef = useRef(null);
 	const lengthRef = useRef(null);
+	const posterRef = useRef(null);
 
 	const toggleDisplay = () => {
 		setDisplayForm(!displayForm);
@@ -29,6 +30,8 @@ const MoviesView = (props) => {
 						<FormInput ref={nameRef} />
 						<InputLabel>Length (in minutes):</InputLabel>
 						<FormInput ref={lengthRef} />
+						<InputLabel>Poster:</InputLabel>
+						<FormInput ref={posterRef} />
 					</ContainerGrid2>
 					<FormSubmit onClick={() => submitForm()}>Submit</FormSubmit>
 				</VerticalContainer>
@@ -39,7 +42,8 @@ const MoviesView = (props) => {
 	const submitForm = () => {
 		const name = nameRef.current.value;
 		const length = lengthRef.current.value;
-		props.submitForm({ name: name, length: length });
+		const poster = posterRef.current.value;
+		props.submitForm({ name: name, length: length, poster: poster });
 	};
 
 	return (
