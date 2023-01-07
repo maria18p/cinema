@@ -10,9 +10,8 @@ export default function Seats() {
   const refreshHalls = async () => setHalls(await getAllHalls());
 
   const refreshSeats = async () => {
-    console.log('1');
+    console.log('SELECTED HALL: ', selectedHall);
     if (selectedHall == null) return;
-    console.log('2');
     const result = await getAllSeats({ hallId: selectedHall.id });
     setSeats(result);
   };
@@ -22,8 +21,12 @@ export default function Seats() {
   };
 
   useEffect(() => {
-    refreshSeats();
-  }, [selectHall]);
+    const awaitRefresh = async () => {
+      console.log('SEATS: ', seats);
+      await refreshSeats();
+    };
+    awaitRefresh();
+  }, [selectedHall]);
 
   const generateSeats = (number) => {
     const seats = [];
