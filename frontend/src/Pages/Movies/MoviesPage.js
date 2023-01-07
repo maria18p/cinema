@@ -13,5 +13,6 @@ export default function MoviesPage() {
 		refreshMovies();
 	}, []);
 
+	
 	return <MoviesPageView movies={movies} />;
 }
