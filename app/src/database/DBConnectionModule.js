@@ -146,6 +146,8 @@ export const post_request_add_seat = async (requestObject) => {
 };
 
 export const get_request_all_seats = async (requestObject) => {
+	console.log("IN CONNECTION MODULE", requestObject);
+
 	const result = await get_all_seats(requestObject);
 	return result;
 };

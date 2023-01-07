@@ -6,6 +6,7 @@ export const SidebarContainer = styled.div`
 `;
 
 export const SidebarItem = styled.span`
+	color: white;
 	padding: 5px;
 	margin-left: 10px;
 	&:hover {
