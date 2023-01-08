@@ -11,6 +11,6 @@ export const SidebarItem = styled.span`
 	margin-left: 10px;
 	&:hover {
 		cursor: pointer;
-		colo: yellow;
+		color: yellow;
 	}
 `;

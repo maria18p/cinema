@@ -15,6 +15,7 @@ const MoviesView = (props) => {
 	const nameRef = useRef(null);
 	const lengthRef = useRef(null);
 	const posterRef = useRef(null);
+	const priceRef = useRef(null);
 
 	const toggleDisplay = () => {
 		setDisplayForm(!displayForm);
@@ -32,6 +33,8 @@ const MoviesView = (props) => {
 						<FormInput ref={lengthRef} />
 						<InputLabel>Poster:</InputLabel>
 						<FormInput ref={posterRef} />
+						<InputLabel>Price:</InputLabel>
+						<FormInput type="number" ref={priceRef} />
 					</ContainerGrid2>
 					<FormSubmit onClick={() => submitForm()}>Submit</FormSubmit>
 				</VerticalContainer>

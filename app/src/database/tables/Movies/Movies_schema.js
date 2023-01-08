@@ -12,4 +12,5 @@ export default {
 	length: sequelize.INTEGER,
 	name: sequelize.STRING,
 	posterURL: sequelize.STRING,
+	ticketPrice: sequelize.INTEGER,
 };

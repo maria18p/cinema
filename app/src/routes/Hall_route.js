@@ -3,7 +3,7 @@ import {
 	post_request_hall,
 	get_request_hall_by_id,
 	get_request_all_halls,
-	post_request_add_seat,
+	post_request_add_seats,
 	get_request_all_seats,
 } from "../database/DBConnectionModule.js";
 
@@ -37,12 +37,9 @@ router.get("/getSeatById", async (req, res) => {
 });
 
 router.post("/addSeat", async (req, res) => {
-	const requestObject = {
-		name: req.body.name,
-		hallId: req.body.hallId,
-	};
+	const requestObject = req.body;
 
-	if ((await post_request_add_seat(requestObject)) == 1) res.send(200);
+	if ((await post_request_add_seats(requestObject)) == 1) res.send(200);
 });
 
 router.post("/getAllSeats", async (req, res) => {

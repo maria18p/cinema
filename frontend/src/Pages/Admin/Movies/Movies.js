@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MoviesView from "./MoviesView";
 import { addMovie, getAllMovies } from "../../../API/moviesCalls";
 
-const emptyObject = { attributes: ["Length", "Name"], values: [] };
+const emptyObject = { attributes: [], values: [] };
 
 const Movies = () => {
 	const [data, setData] = useState(emptyObject);
@@ -15,9 +15,10 @@ const Movies = () => {
 			dataRow.push(obj.id);
 			dataRow.push(obj.name);
 			dataRow.push(obj.length);
+			dataRow.push(obj.ticketPrice);
 			tableData.push(dataRow);
 		});
-		const attributes = ["Name", "Length"];
+		const attributes = ["ID", "Name", "Length", "Price"];
 		setData({ attributes: attributes, values: tableData });
 	};
 

@@ -19,3 +19,11 @@ export const getAllPresentations_by_movieId = async (requestObject) => {
 	console.log("result", result);
 	return result.data;
 };
+
+export const getPresentationById = async (requestObject) => {
+	console.log("requestObject", requestObject);
+
+	const result = await axios.post(BASE_URL + "getById", requestObject);
+	console.log("result", result);
+	return result.data;
+};

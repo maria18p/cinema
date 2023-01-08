@@ -80,7 +80,7 @@ export const remove_user = (requestObject) => {
 	return result;
 };
 
-export const auth_matches = (requestObject) => {
+export const auth_matches = async (requestObject) => {
 	let result = 404;
 	result = ORM.users
 		.findOne({
@@ -91,8 +91,9 @@ export const auth_matches = (requestObject) => {
 			raw: true,
 		})
 		.then((result) => {
-			console.log(`USER: ${result} now logged in`);
-			return result != null;
+			if (result === null) console.log("Invalid login attempt");
+			else console.log(`USER: ${result.username} now logged in`);
+			return result;
 		})
 		.catch((err) => {
 			console.log(err);

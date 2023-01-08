@@ -29,6 +29,7 @@ export default function Seats() {
 	}, [selectedHall]);
 
 	const generateSeats = (number) => {
+		console.log("number", number);
 		const seats = [];
 		const seatCount = number;
 		let runner = 1;
@@ -52,14 +53,18 @@ export default function Seats() {
 		return seats;
 	};
 
-	const addSeats = (number) => {
+	const addSeats = async (number) => {
 		const seatsToAdd = generateSeats(number);
-		seatsToAdd.forEach(async (seat) => {
-			await addSeat({
-				name: seat.name,
-				hallId: selectedHall,
-			});
+		await addSeat({
+			number: number,
+			hallId: selectedHall,
 		});
+		// seatsToAdd.forEach(async (seat) => {
+		// 	await addSeat({
+		// 		name: seat.name,
+		// 		hallId: selectedHall,
+		// 	});
+		// });
 		refreshSeats();
 	};
 

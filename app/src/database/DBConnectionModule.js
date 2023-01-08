@@ -40,7 +40,7 @@ let ORM;
 export const createDBConnection = async () => {
 	await setup_database();
 	ORM = await setup_ORM();
-	// await addDefaultValues();
+	await addDefaultValues();
 	// console.log(await get_all_movies());
 };
 
@@ -63,6 +63,7 @@ export const get_request_presentation_by_id = async (requestObject) => {
 
 export const get_request_presentation_seat_by_id = async (requestObject) => {
 	const request_result = await get_presentation_seats_by_id(requestObject);
+	console.log("request_result", request_result);
 	return request_result;
 };
 
@@ -109,7 +110,7 @@ export const request_post_presentation_add = async (requestObject) => {
 
 export const request_get_login = async (requestObject) => {
 	const request_result = await auth_matches(requestObject);
-
+	console.log("request_result", request_result);
 	return request_result;
 };
 
@@ -140,14 +141,12 @@ export const get_request_all_presentations_by_movieId = async (
 	return result;
 };
 
-export const post_request_add_seat = async (requestObject) => {
+export const post_request_add_seats = async (requestObject) => {
 	const result = await add_seats(requestObject);
 	return result;
 };
 
 export const get_request_all_seats = async (requestObject) => {
-	console.log("IN CONNECTION MODULE", requestObject);
-
 	const result = await get_all_seats(requestObject);
 	return result;
 };
@@ -155,17 +154,20 @@ export const get_request_all_seats = async (requestObject) => {
 export const get_request_presentation_seat_by_presentation_id = async (
 	requestObject
 ) => {
-	const presentationSeats = await get_all_presentation_seats(requestObject);
-	const presentation = await get_presentation_by_id({
-		id: requestObject.presentationId,
-	});
-	const hallSeats = await get_all_seats({ hallId: presentation.HallId });
+	// const presentation = await get_presentation_by_id({
+	// 	id: requestObject.id,
+	// });
+	const hallSeats = await get_all_seats({ hallId: requestObject.HallId });
 	const result = [];
 	for (const seat of hallSeats) {
 		const seatObject = seat;
+		const presentationSeatsBySeatID = await get_presentation_seats_by_seat_id(
+			seat
+		);
+		console.log("presentationSeatsBySeatID", presentationSeatsBySeatID);
 		if ((await get_presentation_seats_by_seat_id(seat)) != null)
-			seatObject.dataValues.occupied = true;
-		else seatObject.dataValues.occupied = false;
+			seatObject.occupied = true;
+		else seatObject.occupied = false;
 		result.push(seatObject);
 	}
 	return result;
@@ -178,12 +180,54 @@ export const post_request_add_presentation_seat = async (requestObject) => {
 
 const addDefaultValues = async () => {
 	// return;
-	await add_movie({ name: "Avatar", length: 150 });
-	await add_movie({ name: "Titanic", length: 150 });
-	await add_movie({ name: "Back to the Future", length: 150 });
-	await add_movie({ name: "Indiana Jones", length: 150 });
-	await add_movie({ name: "Intersteller", length: 150 });
-	await add_hall({ name: "Green" });
-	await add_hall({ name: "Red" });
-	await add_hall({ name: "Blue" });
+	// await add_movie({
+	// 	name: "Harry potter and the philosopher's stone",
+	// 	length: 150,
+	// 	ticketPrice: 100,
+	// 	posterURL:
+	// 		"https://images.moviesanywhere.com/143cdb987186a1c8f94d4f18de211216/fdea56fa-2703-47c1-8da8-70fc5382e1ea.webp?h=375&resize=fit&w=250",
+	// });
+	// await add_movie({
+	// 	name: "Harry Potter and The Chamber Of Secrets",
+	// 	length: 150,
+	// 	ticketPrice: 100,
+	// 	posterURL:
+	// 		"https://images.moviesanywhere.com/51d05e3bd56acb23ba41a4db49633d98/743b4280-5ea4-4468-8d63-d565d480bee2.webp?h=375&resize=fit&w=250",
+	// });
+	// await add_movie({
+	// 	name: "Harry Potter and The Prisoner Of Azkaban",
+	// 	length: 150,
+	// 	ticketPrice: 100,
+	// 	posterURL:
+	// 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtr6OXFqx4y766Pao-9IBXEbnJ80dLCXkbgA&usqp=CAU",
+	// });
+	// await add_movie({
+	// 	name: "The Lord Of The Rings The Fellowship Of The Ring",
+	// 	length: 150,
+	// 	ticketPrice: 100,
+	// 	posterURL:
+	// 		"https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg",
+	// });
+	// await add_movie({
+	// 	name: "The Lord Of The Rings: The Two Towers",
+	// 	length: 150,
+	// 	ticketPrice: 100,
+	// 	posterURL:
+	// 		"https://upload.wikimedia.org/wikipedia/en/d/d0/Lord_of_the_Rings_-_The_Two_Towers_%282002%29.jpg",
+	// });
+	// await add_movie({
+	// 	name: "The Lord Of The Rings: The Return Of The King",
+	// 	length: 150,
+	// 	ticketPrice: 100,
+	// 	posterURL:
+	// 		"https://moviesmedia.ign.com/movies/image/object/487/487665/lotr_the-return-of-the-king_poster.jpg",
+	// });
+	// await add_hall({ name: "Blue" });
+	// await add_hall({ name: "Red" });
+	// await add_hall({ name: "Green" });
+	// await add_hall({ name: "Black" });
+	// await add_hall({ name: "Yellow" });
+	// await add_user({ username: "admin", password: "admin", permission: 1 });
+	// await add_user({ username: "maria", password: "1234", permission: 0 });
+	// await add_user({ username: "peter", password: "1234", permission: 0 });
 };

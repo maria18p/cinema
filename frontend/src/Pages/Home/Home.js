@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import HomeView from "./HomeView";
-import { getAllMovies } from "../../API/moviesCalls";
-import { getAllPresentations } from "../../API/presentationCalls";
+import { getAllMovies, getMovieById } from "../../API/moviesCalls";
+import {
+	getAllPresentations,
+	getAllPresentations_by_movieId,
+	getPresentationById,
+} from "../../API/presentationCalls";
 import {
 	addPresentationSeats,
 	getPresentationSeatsByPresentation,
@@ -21,18 +25,15 @@ export default function Home() {
 	};
 
 	const refreshPresentations = async () => {
-		setPresentations(await getAllPresentations(selectedMovie));
+		setPresentations(
+			await getAllPresentations_by_movieId({ id: selectedMovie })
+		);
 	};
 
 	const selectMovie = (movie) => setSelectedMovie(movie);
-	const selectPresentation = (presentation) => {
-		console.log("presentation", presentation);
-		setSelectedPresentation(presentation);
-	};
-	const refreshMovieSeats = async () => {
-		setMoviesSeats(
-			await getPresentationSeatsByPresentation(selectedPresentation)
-		);
+	const selectPresentation = async (presentation) => {
+		const presentationObj = await getPresentationById({ id: presentation });
+		setSelectedPresentation(presentationObj);
 	};
 
 	useEffect(() => {
@@ -47,12 +48,18 @@ export default function Home() {
 		if (selectedPresentation !== null) refreshMovieSeats();
 	}, [selectedPresentation]);
 
+	const refreshMovieSeats = async () => {
+		setMoviesSeats(
+			await getPresentationSeatsByPresentation(selectedPresentation)
+		);
+	};
 	const selectSeat = async (seat) => {
 		const requestObject = {
 			seatId: seat.id,
 			presentationId: selectedPresentation.id,
 		};
 		await addPresentationSeats(requestObject);
+		refreshMovieSeats();
 	};
 
 	return (

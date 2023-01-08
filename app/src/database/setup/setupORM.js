@@ -35,18 +35,18 @@ const define_ORM_tables = async (dbConnection) => {
 		"================================================================"
 	);
 	console.log("SETTING UP ORM TABLE CONNECTIONS...");
-	const movies = await connectTable("Movies", Movies_schema, dbConnection);
-	const halls = await connectTable("Halls", Halls_schema, dbConnection);
+	const movies = await connectTable("movies", Movies_schema, dbConnection);
+	const halls = await connectTable("halls", Halls_schema, dbConnection);
 	const presentations = await connectTable(
-		"Presentations",
+		"presentations",
 		Presentation_schema,
 		dbConnection
 	);
-	const seats = await connectTable("Seats", Seats_schema, dbConnection);
-	const tickets = await connectTable("Tickets", Tickets_schema, dbConnection);
-	const users = await connectTable("Users", Users_schema, dbConnection);
+	const seats = await connectTable("seats", Seats_schema, dbConnection);
+	const tickets = await connectTable("tickets", Tickets_schema, dbConnection);
+	const users = await connectTable("users", Users_schema, dbConnection);
 	const presentation_seats = await connectTable(
-		"Presentation_Seats",
+		"presentation_seats",
 		Presentation_Seat_schema,
 		dbConnection
 	);
@@ -54,49 +54,16 @@ const define_ORM_tables = async (dbConnection) => {
 	console.log(
 		"----------------------------------------------------------------"
 	);
-	console.log("Creating Associations:");
 
-	// await halls.hasMany(seats, { foreignKey: "HallId" });
-	// await seats.belongsTo(halls, {
-	// 	// foreignKey: "id",
-	// });
-	console.log(
-		`\thalls.hasMany(seats)\t->\tseats belongsTo(halls, on Seats.id)`
-	);
-
-	// await presentations.belongsTo(movies, {});
-	// await movies.hasMany(presentations);
-
-	// await presentations.belongsTo(halls, {});
-	// await halls.hasMany(presentations);
-
-	// await presentation_seats.belongsTo(seats, {});
-
-	// await seats.hasMany(presentation_seats);
-
-	// await presentation_seats.belongsTo(presentations, {});
-
-	// await presentations.hasMany(presentation_seats);
-
-	// await tickets.belongsTo(users, {});
-
-	// users.hasMany(tickets);
-
-	// await tickets.belongsTo(presentation_seats, {});
-	// presentation_seats.hasMany(tickets);
-
-	console.log(
-		"----------------------------------------------------------------"
-	);
 	console.log("Validating Tables");
 
-	await validate_table(movies, "Movies");
-	await validate_table(halls, "Halls");
-	await validate_table(presentations, "Presentations");
-	await validate_table(presentation_seats, "Presentation_Seats");
-	await validate_table(seats, "Seats");
-	await validate_table(tickets, "Tickets");
-	await validate_table(users, "Users");
+	await validate_table(movies, "movies");
+	await validate_table(halls, "halls");
+	await validate_table(presentations, "presentations");
+	await validate_table(presentation_seats, "presentation_seats");
+	await validate_table(seats, "seats");
+	await validate_table(tickets, "tickets");
+	await validate_table(users, "users");
 
 	console.log(
 		"----------------------------------------------------------------"

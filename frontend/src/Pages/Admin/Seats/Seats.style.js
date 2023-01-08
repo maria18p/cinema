@@ -15,7 +15,7 @@ export const SeatCellContainer = styled.div`
 	border: 2px solid black;
 	border-radius: 15px;
 	background-color: white;
-	color: black;
+	/* color: black; */
 	&:hover {
 		cursor: pointer;
 		background-color: yellow;

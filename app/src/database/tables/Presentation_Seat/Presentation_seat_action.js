@@ -1,7 +1,8 @@
 import { ORM } from "../../DBConnectionModule.js";
 
 export const add_presentation_seats = async (requestObject) => {
-	console.log("requestObject", requestObject);
+	if ((await get_presentation_seats_by_seatId(requestObject)) != null)
+		return -1;
 	const result = await ORM.presentation_seats
 		.create({
 			SeatId: requestObject.seatId,
@@ -13,6 +14,25 @@ export const add_presentation_seats = async (requestObject) => {
 		})
 		.catch((err) => {
 			throw err;
+		});
+	return result;
+};
+
+export const get_presentation_seats_by_seatId = async (requestObject) => {
+	const result = await ORM.presentation_seats
+		.findOne({
+			where: {
+				seatId: requestObject.seatId,
+				presentationId: requestObject.presentationId,
+			},
+			raw: true,
+		})
+		.then(async (row) => {
+			return row;
+		})
+		.catch((err) => {
+			console.log("REQUESTED PRESENTATION SEAT NOT FOUND");
+			return 404;
 		});
 	return result;
 };
@@ -60,7 +80,7 @@ export const update_seat = async (requestObject) => {
 
 export const get_presentation_seats_by_id = async (requestObject) => {
 	const result = await ORM.presentation_seats
-		.findByPk(requestObject.id)
+		.findByPk(requestObject.id, { raw: true })
 		.then(async (row) => {
 			return row;
 		})

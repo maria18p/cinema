@@ -48,7 +48,7 @@ export const get_all_presentations = async (requestObject) => {
 export const get_all_presentations_by_movieId = async (requestObject) => {
 	return await ORM.presentations
 		.findAll({
-			where: { MovieId: parseInt(requestObject.id) },
+			where: { MovieId: requestObject.id },
 		})
 		.then(async (rows) => {
 			return rows;

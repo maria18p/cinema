@@ -1,18 +1,45 @@
 import { ORM } from "../../DBConnectionModule.js";
 
-export const add_seats = async (requestObject) => {
-	console.log("requestObjectttt", requestObject);
-	const result = await ORM.seats
-		.create({
-			name: requestObject.name,
-			HallId: requestObject.hallId,
+export const generateSeatNames = async (requestObject) => {
+	const result = [];
+	const lastSeat = await ORM.seats
+		.findOne({
+			where: { HallId: requestObject.hallId },
+			order: [["createdAt", "DESC"]],
 		})
-		.then(() => {
-			console.log(`SEAT ${requestObject.name} ADDED`);
+		.then(async (row) => {
+			return row;
 		})
 		.catch((err) => {
 			throw err;
 		});
+	let lastSeatId = 1;
+	if (lastSeat != null) {
+		lastSeatId = parseInt(lastSeat.name);
+	}
+
+	for (let i = lastSeatId + 1; i <= lastSeatId + requestObject.number; i++) {
+		result.push({ name: i });
+	}
+	return result;
+};
+
+export const add_seats = async (requestObject) => {
+	let result = -1;
+	const seatToAdd = await generateSeatNames(requestObject);
+	for (let seat of seatToAdd) {
+		result = await ORM.seats
+			.create({
+				name: seat.name,
+				HallId: requestObject.hallId,
+			})
+			.then(() => {
+				console.log(`SEAT ${requestObject.name} ADDED`);
+			})
+			.catch((err) => {
+				throw err;
+			});
+	}
 	return result;
 };
 

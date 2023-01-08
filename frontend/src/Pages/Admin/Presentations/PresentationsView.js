@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	ContainerGrid2,
 	FormInput,
 	FormSelect,
+	FormSubmit,
 	InputLabel,
 	SelectOption,
 	Title,
@@ -17,8 +18,9 @@ const PresentationsView = (props) => {
 	const timeRef = useRef(null);
 	const dateRef = useRef(null);
 	const hallRef = useRef(null);
-	const [displayForm, setDisplayForm] = useState(true);
+	const [displayForm, setDisplayForm] = useState(false);
 	const toggleForm = () => setDisplayForm(!displayForm);
+	const [displayContent, setDisplayContent] = useState(false);
 
 	const submitForm = () => {
 		const requestObject = {
@@ -27,6 +29,7 @@ const PresentationsView = (props) => {
 			date: dateRef.current.value,
 			hall: hallRef.current.value,
 		};
+		// console.log("requestObject", requestObject);
 		props.submitForm(requestObject);
 	};
 
@@ -64,22 +67,31 @@ const PresentationsView = (props) => {
 						<InputLabel>Start:</InputLabel>
 						<FormInput type="time" ref={timeRef} />
 					</ContainerGrid2>
-					<ManageOption onClick={() => submitForm()}>Submit</ManageOption>
+					<FormSubmit onClick={() => submitForm()}>Submit</FormSubmit>
 				</VerticalContainer>
 			</>
 		);
 	};
 
-	return (
-		<>
-			<VerticalContainer>
-				<Title>Movie Presentations</Title>
-				<ManageOption onClick={() => toggleForm()}>Toggle Add</ManageOption>
-				{generateForm()}
-				<DataTable data={props.data} />
-			</VerticalContainer>
-		</>
-	);
+	useEffect(() => {
+		setDisplayContent(true);
+	}, [props.data]);
+
+	const showContent = () => {
+		if (!displayContent) return <>loading...</>;
+		return (
+			<>
+				<VerticalContainer>
+					<Title>Movie Presentations</Title>
+					<ManageOption onClick={() => toggleForm()}>Toggle Add</ManageOption>
+					{generateForm()}
+					<DataTable data={props.data} />
+				</VerticalContainer>
+			</>
+		);
+	};
+
+	return <>{showContent()}</>;
 };
 
 export default PresentationsView;

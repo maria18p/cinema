@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const DataTable = styled.table`
 	height: 100%;
+	color: white;
 `;
 export const DataTBody = styled.tbody`
 	height: 100%;

@@ -20,3 +20,5 @@ export const NavbarOption = styled.a`
 		color: yellow;
 	}
 `;
+
+export const UserGreeting = styled.span``;

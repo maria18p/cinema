@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import NavbarView from "./NavbarView";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {

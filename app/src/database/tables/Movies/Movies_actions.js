@@ -6,7 +6,8 @@ export const add_movie = async (requestObject) => {
 		.create({
 			name: requestObject.name,
 			length: requestObject.length,
-			posterURL: requestObject.poster,
+			posterURL: requestObject.posterURL,
+			ticketPrice: requestObject.ticketPrice,
 		})
 		.then((result) => {
 			console.log(`Movie ADDED: ${requestObject.name}`);
@@ -14,7 +15,6 @@ export const add_movie = async (requestObject) => {
 		})
 		.catch((err) => console.log(err));
 
-	console.log("result", result);
 	return result;
 };
 
